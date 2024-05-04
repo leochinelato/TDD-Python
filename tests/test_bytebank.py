@@ -1,5 +1,6 @@
 from codigo.bytebank import Funcionario
 import pytest
+from pytest import mark
 
 
 # O metodo tem que comecar com test_ e tem que ser verboso
@@ -32,6 +33,7 @@ class TestClass:
         resultado = funcionario_teste.salario
         assert resultado == esperado  # Then
 
+    @mark.calcular_bonus
     def test_quando_calcular_bonus_recebe_1000_deve_retornar_100(self):
         entrada = 1000  # Given
         esperado = 100
@@ -41,10 +43,11 @@ class TestClass:
 
         assert resultado == esperado  # Then
 
+    @mark.calcular_bonus
     def test_quando_calcular_bonus_recebe_1_000_000_000_deve_retornar_exception(self):
         with pytest.raises(Exception):
-            entrada = 1_000_000_000
+            entrada = 1_000_000_000  # Given
 
             funcionario_teste = Funcionario("Teste", "0", entrada)
-            resultado = funcionario_teste.calcular_bonus()
-            assert resultado
+            resultado = funcionario_teste.calcular_bonus()  # When
+            assert resultado  # Then
